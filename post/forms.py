@@ -10,11 +10,11 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model =Comment
         fields =['comment']
-        error_messages = {
-                    'comment': {
-                        'required': "",  # Setting an empty string to remove the default message
-                    },
-                }
+        # error_messages = {
+        #             'comment': {
+        #                 'required': ""
+        #             },
+        #         }
 
 CHOISES=[
     ('Ascending',"Ascending"),
