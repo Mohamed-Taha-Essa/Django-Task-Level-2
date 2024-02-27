@@ -8,13 +8,13 @@ def home(request):
     posts = Post.objects.all()
     # comments = Comment.objects.all()
     comments = None
-    if request.method =='POST' :
-        
+    if request.method =='POST' :    
         form =CommentForm(request.POST)
         form2 =ArrangeForm(request.POST)
-
-        if form.is_valid():
+        
+        if 'post_id' in request.POST and form.is_valid():
             id = int(request.POST['post_id'])
+            print(id)
             post = Post.objects.get(id = id)
             myform =  form.save(commit=False)
             myform.post =post
@@ -22,18 +22,17 @@ def home(request):
             myform.save()
             return redirect(f'/home')
         
-        if form2.is_valid():
+        elif 'post_arrange_id' in request.POST and  form2.is_valid():
             print('form2')
             id = int(request.POST['post_arrange_id'])
             post = Post.objects.get(id = id)
             selected_choice = form2.cleaned_data['arrange']
+            form =CommentForm()
 
             if selected_choice == 'Ascending' :
-                print('ascending')
                 comments=  Comment.objects.filter(post = post).order_by('created_at')
             elif selected_choice == 'Deascending' :
                 comments = Comment.objects.filter(post = post).order_by('-created_at')
-                print('deascending')
             else :
                 comments =None
             

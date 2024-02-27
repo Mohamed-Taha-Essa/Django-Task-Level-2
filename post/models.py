@@ -25,7 +25,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comment_posts', on_delete=models.SET_NULL ,null=True)
 
     user =models.ForeignKey(User, related_name='user'  ,  on_delete=models.CASCADE)
-    comment= models.TextField(max_length=100)
+    comment= models.TextField(max_length=100 )
     created_at = models.DateTimeField( default= timezone.now )
     
     def __str__(self):
